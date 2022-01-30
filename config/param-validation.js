@@ -18,4 +18,12 @@ module.exports = {
             password: Joi.string().min(6).required()
         }
     },
+
+     // POST /api/blog/create
+     blog:{
+         body:{
+            title: Joi.string().min(1).required(),
+            description: Joi.string().min(5).required(),
+         }
+     }
 };
