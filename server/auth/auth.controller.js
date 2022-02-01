@@ -30,7 +30,7 @@ function login(req, res, next) {
                         const token = jwt.sign({
                             _id: user._id,
                             email: user.email,
-                            usernamename: user.username,
+                            username: user.username,
                             avatar: user.avatar,
                         }, config.jwtSecret);
                         return res.json({

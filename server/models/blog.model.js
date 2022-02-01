@@ -25,7 +25,6 @@ const BlogSchema = new mongoose.Schema({
             required: true
         },
         username: String,
-        email: String,
         avatar: String
     },
 }, {
