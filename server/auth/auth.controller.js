@@ -34,7 +34,7 @@ function login(req, res, next) {
                             avatar: user.avatar,
                         }, config.jwtSecret);
                         return res.json({
-                            user: _.pick(user, ['_id', 'username', 'email']),
+                            user: _.pick(user, ['_id', 'username', 'email', 'avatar']),
                             token: token
                         });
                     } else {
@@ -74,7 +74,7 @@ function signUp(req, res, next) {
                 email: user.email,
             }, config.jwtSecret);
             return res.json({
-                user: _.pick(user, ['_id', 'username', 'email']),
+                user: _.pick(user, ['_id', 'username', 'email', 'avatar']),
                 token: token
             });
         })

@@ -28,7 +28,8 @@ const UserSchema = new mongoose.Schema({
         minLength: 6
     },
     avatar: {
-        type: String
+        type: String,
+        default: 'http://localhost:4040/images/avatar/profile.png'
     }
 }, { timeStamp: true });
 

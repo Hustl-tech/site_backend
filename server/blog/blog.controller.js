@@ -1,7 +1,3 @@
-const httpStatus = require('http-status');
-const path = require('path');
-
-const APIError = require('../helpers/APIError');
 const Blog = require('../models/blog.model');
 const Resize = require('../helpers/resize');
 
@@ -15,12 +11,13 @@ function create(req, res, next) {
     if (req.body.description)
         blog.description = req.body.description;
     if (req.body.tags)
-        blog.tags = [req.body.tags];
+        blog.tags = req.body.tags;
 
     blog.author = {
         userId: user._id,
         username: user.username,
         email: user.email,
+        avatar: user.avatar
     }
 
     if (req.file) {
@@ -67,7 +64,40 @@ function list(req, res, next) {
         .catch(e => next(e));
 }
 
+function listUserPosts(req, res, next) {
+    const { limit = 15, skip = 0 } = req.query;
+
+    let result = {};
+
+    Blog.find({ 'author.userId': req.user._id })
+        .sort({ createdAt: -1 })
+        .skip(+skip)
+        .limit(+limit)
+        .then(blogs => {
+            result.blogs = blogs;
+            // Blog.count(query)
+            return Blog.count();
+        })
+        .then(count => {
+            result.count = count;
+            res.json(result);
+        })
+        .catch(e => next(e));
+}
+
+
+
+function detail(req, res, next) {
+    Blog.findById(req.params.id)
+        .then(result => {
+            res.json(result);
+        })
+        .catch(e => next(e));
+}
+
 module.exports = {
     create,
-    list
+    list,
+    detail,
+    listUserPosts
 }

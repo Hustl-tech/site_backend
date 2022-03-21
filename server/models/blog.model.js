@@ -28,7 +28,7 @@ const BlogSchema = new mongoose.Schema({
         avatar: String
     },
 }, {
-    timeStamp: true
+    timestamps: true
 });
 
 

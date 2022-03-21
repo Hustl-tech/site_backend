@@ -1,10 +1,7 @@
 const express = require('express');
-const validate = require('express-validation');
 
-const paramValidation = require('../../config/param-validation');
 const authCheck = require('../middleware/auth_check');
 
-const storage = require('../helpers/storage');
 const upload = require('../helpers/upload');
 
 const blogCtrl = require('./blog.controller');
@@ -16,6 +13,15 @@ router.route('/')
     .get(blogCtrl.list)
     /** POST /api/blog - Create new blog */
     .post(authCheck, upload.single('image'), blogCtrl.create);
+
+router.route('/posts')
+    /** GET /api/blog/posts */
+    .get(authCheck, blogCtrl.listUserPosts)
+
+router.route('/:id')
+    /** GET /api/blog/:blogId/ */
+    .get(blogCtrl.detail)
+
 
 
 
