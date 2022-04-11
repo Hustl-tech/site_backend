@@ -21,8 +21,10 @@ router.route('/posts')
 router.route('/:id')
     /** GET /api/blog/:blogId/ */
     .get(blogCtrl.detail)
-
-
+    /** PUT /api/blog/:blogId/ */
+    .put(authCheck, blogCtrl.update)
+    /** DELETE /api/blog/:blogId/ */
+    .delete(authCheck, blogCtrl.remove)
 
 
 module.exports = router;
